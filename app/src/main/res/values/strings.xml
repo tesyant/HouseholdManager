@@ -6,4 +6,9 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="members">Annisa KS, Dini, Muftia, Tesya, Mardiyah</string>
+    <string name="oleh">Oleh :</string>
+    <string name="tugas_akhir_pbo_2017">Tugas Akhir PBO 2017</string>
+    <string name="versi_1_0">Versi 1.0</string>
+    <string name="about">About</string>
 </resources>
