@@ -20,7 +20,15 @@
             android:name="activities.NavDrawerActivity"
             android:label="@string/title_activity_nav_drawer"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="activities.AboutActivity"></activity>
+        <activity android:name="activities.AboutActivity" />
+        <activity
+            android:name=".KebTetap"
+            android:label="@string/title_activity_keb_tetap"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".KebTdkTetap"
+            android:label="@string/title_activity_keb_tdk_tetap"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
