@@ -1,7 +1,9 @@
-package com.lulua.tesyant.householdmanager;
+package activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.lulua.tesyant.householdmanager.R;
 
 public class AboutActivity extends AppCompatActivity {
 
