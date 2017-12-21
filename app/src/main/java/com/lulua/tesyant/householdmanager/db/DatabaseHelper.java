@@ -1,4 +1,4 @@
-package db;
+package com.lulua.tesyant.householdmanager.db;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
