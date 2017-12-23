@@ -1,4 +1,4 @@
-package com.lulua.tesyant.householdmanager;
+package com.lulua.tesyant.householdmanager.activities;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -7,7 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-public class KebTdkTetap extends AppCompatActivity {
+import com.lulua.tesyant.householdmanager.R;
+
+public class UnfixedNeedsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

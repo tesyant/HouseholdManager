@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.lulua.tesyant.householdmanager.KebTetap"
+    tools:context="com.lulua.tesyant.householdmanager.activities.FixedNeedsActivity"
     tools:showIn="@layout/activity_keb_tetap">
 
 </android.support.constraint.ConstraintLayout>

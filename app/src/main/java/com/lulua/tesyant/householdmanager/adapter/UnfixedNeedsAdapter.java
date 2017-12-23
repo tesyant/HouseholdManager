@@ -1,3 +1,5 @@
+package com.lulua.tesyant.householdmanager.adapter;
+
 import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
