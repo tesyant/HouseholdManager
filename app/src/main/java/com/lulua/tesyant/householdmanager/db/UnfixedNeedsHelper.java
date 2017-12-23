@@ -1,11 +1,10 @@
-package db;
+package com.lulua.tesyant.householdmanager.db;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.lulua.tesyant.householdmanager.db.DatabaseHelper;
 import com.lulua.tesyant.householdmanager.models.UnfixedNotes;
 
 import java.util.ArrayList;
