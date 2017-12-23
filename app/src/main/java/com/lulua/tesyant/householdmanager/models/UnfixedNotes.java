@@ -1,25 +1,23 @@
 package com.lulua.tesyant.householdmanager.models;
 
-import java.util.Date;
-
 /**
  * Created by tesyant on 21/12/17.
  */
 
 public class UnfixedNotes extends Needs {
-    private Date tglBeli;
+    private String tglBeli;
 
     public UnfixedNotes(){
         super();
 
     }
 
-    public UnfixedNotes (String nama, int jumlah, double harga, Date tglBeli) {
+    public UnfixedNotes (String nama, int jumlah, double harga, String tglBeli) {
         super(nama, jumlah, harga);
         this.tglBeli = tglBeli;
     }
 
-    public Date getTglBeli() {
+    public String getTglBeli() {
         return tglBeli;
     }
 
