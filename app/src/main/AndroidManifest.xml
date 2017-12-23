@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="activities.MainActivity">
+        <activity android:name="com.lulua.tesyant.householdmanager.activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -17,17 +17,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="activities.NavDrawerActivity"
+            android:name="com.lulua.tesyant.householdmanager.activities.NavDrawerActivity"
             android:label="@string/title_activity_nav_drawer"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="activities.AboutActivity" />
-        <activity
-            android:name=".KebTetap"
-            android:label="@string/title_activity_keb_tetap"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".KebTdkTetap"
-            android:label="@string/title_activity_keb_tdk_tetap"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
