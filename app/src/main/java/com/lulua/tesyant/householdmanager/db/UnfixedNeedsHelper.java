@@ -1,14 +1,12 @@
 package com.lulua.tesyant.householdmanager.db;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
-import android.util.Log;
 
-import com.lulua.tesyant.householdmanager.models.UnfixedNotes;
+import com.lulua.tesyant.householdmanager.models.UnfixedNeeds;
 
 import java.util.ArrayList;
 
@@ -41,18 +39,18 @@ public class UnfixedNeedsHelper {
     public Cursor queryAllData(){
         return database.rawQuery("SELECT * FROM "+DATABASE_TABLE+"ORDER BY"+DatabaseHelper.FIELD_ID_BARANG_TDKTETAP+" DESC ", null);
     }
-    public ArrayList<UnfixedNotes> getAllData(){
-       ArrayList<UnfixedNotes> arrayList=new ArrayList<>();
+    public ArrayList<UnfixedNeeds> getAllData(){
+       ArrayList<UnfixedNeeds> arrayList=new ArrayList<>();
        Cursor cursor=queryAllData();
        cursor.moveToFirst();
-       UnfixedNotes unfixedNotes;
+       UnfixedNeeds unfixedNeeds;
        if(cursor.getCount()>0){
            do{
-               unfixedNotes=new UnfixedNotes();
-               unfixedNotes.setNama(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.FIELD_NAMA_BARANG_TDKTETAP)));
-               unfixedNotes.setTglBeli(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.FIELD_TGLBELI_TDKTETAP)));
-               unfixedNotes.setJumlah(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.FIELD_JUMLAH)));
-               unfixedNotes.setHarga(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.FIELD_HARGA)));
+               unfixedNeeds =new UnfixedNeeds();
+               unfixedNeeds.setNama(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.FIELD_NAMA_BARANG_TDKTETAP)));
+               unfixedNeeds.setTglBeli(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.FIELD_TGLBELI_TDKTETAP)));
+               unfixedNeeds.setJumlah(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.FIELD_JUMLAH)));
+               unfixedNeeds.setHarga(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.FIELD_HARGA)));
            }
            while(!cursor.isAfterLast());
        }
@@ -61,7 +59,7 @@ public class UnfixedNeedsHelper {
     }
 
 
-    public void insertTransaction(ArrayList<UnfixedNotes> unfixedNotes){
+    public void insertTransaction(ArrayList<UnfixedNeeds> unfixedNotes){
         String sql="INSERT INTO "+DATABASE_TABLE+"("
                 +DatabaseHelper.FIELD_NAMA_BARANG_TDKTETAP+","
                 +DatabaseHelper.FIELD_TGLBELI_TDKTETAP+","

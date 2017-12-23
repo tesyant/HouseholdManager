@@ -4,15 +4,15 @@ package com.lulua.tesyant.householdmanager.models;
  * Created by tesyant on 21/12/17.
  */
 
-public class UnfixedNotes extends Needs {
+public class UnfixedNeeds extends Needs {
     private String tglBeli;
 
-    public UnfixedNotes(){
+    public UnfixedNeeds(){
         super();
 
     }
 
-    public UnfixedNotes (String nama, int jumlah, double harga, String tglBeli) {
+    public UnfixedNeeds(String nama, int jumlah, double harga, String tglBeli) {
         super(nama, jumlah, harga);
         this.tglBeli = tglBeli;
     }

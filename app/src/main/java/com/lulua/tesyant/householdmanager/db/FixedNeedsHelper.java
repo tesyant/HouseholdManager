@@ -9,7 +9,6 @@ import android.database.sqlite.SQLiteStatement;
 import java.util.ArrayList;
 
 import com.lulua.tesyant.householdmanager.models.FixedNeeds;
-import com.lulua.tesyant.householdmanager.models.UnfixedNotes;
 
 /**
  * Created by tesyant on 20/12/17.

@@ -6,10 +6,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.lulua.tesyant.householdmanager.R;
+import com.lulua.tesyant.householdmanager.models.FixedNeeds;
 
 import java.util.List;
-
-import models.Btetap;
 
 /**
  * Created by USER on 12/21/2017.
@@ -17,7 +16,7 @@ import models.Btetap;
 
 public class FixedNeedsAdapter extends RecyclerView.Adapter<FixedNeedsAdapter.MyViewHolder> {
 
-    private List<Btetap> btetaps;
+    private List<FixedNeeds> fixedNeeds;
     private Activity activity;
 
     CustomItemClickListener listener;
@@ -38,12 +37,12 @@ public class FixedNeedsAdapter extends RecyclerView.Adapter<FixedNeedsAdapter.My
 
     @Override
     public void onBindViewHolder (FixedNeedsAdapter.MyViewHolder holder, int position) {
-        holder.title.setText(""+ btetaps.get(position).getName());
+        holder.title.setText(""+ fixedNeeds.get(position).getNama());
     }
 
     @Override
     public int getItemCount() {
-        return btetaps.size();
+        return fixedNeeds.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -55,8 +54,8 @@ public class FixedNeedsAdapter extends RecyclerView.Adapter<FixedNeedsAdapter.My
         }
     }
 
-    public FixedNeedsAdapter(List<Btetap> btetaps, Activity activity, CustomItemClickListener listener ){
-        this.btetaps = btetaps;
+    public FixedNeedsAdapter(List<FixedNeeds> fixedNeeds, Activity activity, CustomItemClickListener listener ){
+        this.fixedNeeds = fixedNeeds;
         this.activity = activity;
         this.listener = listener;
     }
