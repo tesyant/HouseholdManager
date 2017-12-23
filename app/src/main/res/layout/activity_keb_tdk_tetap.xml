@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.lulua.tesyant.householdmanager.KebTetap">
+    tools:context="com.lulua.tesyant.householdmanager.KebTdkTetap">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -20,17 +20,16 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_keb_tetap" />
+    <include layout="@layout/content_keb_tdk_tetap" />
     <android.support.v7.widget.RecyclerView
         android:layout_marginTop="65dp"
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"/>
 
-    </android.support.v7.widget.RecyclerView>
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_title_keb"
+        android:id="@+id/fab_title_keb_tdk_ttp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"

@@ -7,16 +7,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-public class KebTetap extends AppCompatActivity {
+public class KebTdkTetap extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_keb_tetap);
+        setContentView(R.layout.activity_keb_tdk_tetap);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_title_keb);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_title_keb_tdk_ttp);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
