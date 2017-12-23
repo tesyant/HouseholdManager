@@ -12,6 +12,10 @@ public class Needs {
         this.harga = harga;
     }
 
+    public Needs() {
+
+    }
+
     public String getNama() {
         return nama;
     }

@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteStatement;
 import java.util.ArrayList;
 
 import com.lulua.tesyant.householdmanager.models.FixedNeeds;
+import com.lulua.tesyant.householdmanager.models.UnfixedNotes;
 
 /**
  * Created by tesyant on 20/12/17.
@@ -48,10 +49,10 @@ public class FixedNeedsHelper {
         if (cursor.getCount() > 0) {
             do {
                 fixedNeeds = new FixedNeeds();
-                fixedNeeds.setName(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.FIELD_NAMA_BARANG_TETAP)));
+                fixedNeeds.setNama(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.FIELD_NAMA_BARANG_TETAP)));
                 fixedNeeds.setHarga(cursor.getDouble(cursor.getColumnIndexOrThrow(DatabaseHelper.FIELD_HARGA)));
                 fixedNeeds.setJumlah(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.FIELD_JUMLAH)));
-                fixedNeeds.setTglbayar(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.FIELD_TGLBELI_TETAP)));
+                fixedNeeds.setTanggalBayar(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.FIELD_TGLBELI_TETAP)));
                 arrayList.add(fixedNeeds);
                 cursor.moveToNext();
             }
@@ -61,21 +62,29 @@ public class FixedNeedsHelper {
         return arrayList;
     }
 
-    public long insertTransaction(ArrayList<FixedNeeds> fixedNeeds) {
-        String sql = "INSERT INTO " + DATABASE_TABLE + " ("
-                + DatabaseHelper.FIELD_NAMA_BARANG_TETAP + " , "
-                + DatabaseHelper.FIELD_HARGA + " , "
-                + DatabaseHelper.FIELD_JUMLAH + " , "
-                + DatabaseHelper.FIELD_TGLBELI_TETAP + ")"
-                + " VALUES (?, ?, ?, ?);";
+    public void insertTransaction(ArrayList<FixedNeeds> fixedNeeds){
+        String sql="INSERT INTO "+DATABASE_TABLE+"("
+                +DatabaseHelper.FIELD_NAMA_BARANG_TETAP+","
+                +DatabaseHelper.FIELD_TGLBELI_TETAP+","
+                +DatabaseHelper.FIELD_JUMLAH+","
+                +DatabaseHelper.FIELD_HARGA+") VALUES(?,?);";
         database.beginTransaction();
 
-        SQLiteStatement statement = database.compileStatement(sql);
-        for (int i = 0; i < fixedNeeds.size(); i++) {
-            statement.bindString(1, fixedNeeds.get(i).getName());
-            statement.bindString(2, fixedNeeds.get(i).get);
+        SQLiteStatement statement=database.compileStatement(sql);
+        for(int i=0;i<fixedNeeds.size();i++){
+            statement.bindString(1,fixedNeeds.get(i).getNama());
+            statement.bindString(2, String.valueOf(fixedNeeds.get(i).getTanggalBayar()));
+            statement.bindLong(3,fixedNeeds.get(i).getJumlah());
+            statement.bindDouble(4,fixedNeeds.get(i).getHarga());
+            statement.execute();
+            statement.clearBindings();
         }
+        database.setTransactionSuccessful();
+        database.endTransaction();
     }
+
+
+
 
 
 

@@ -11,6 +11,4 @@
     <string name="tugas_akhir_pbo_2017">Tugas Akhir PBO 2017</string>
     <string name="versi_1_0">Versi 1.0</string>
     <string name="about">About</string>
-    <string name="title_activity_keb_tetap">KebTetap</string>
-    <string name="title_activity_keb_tdk_tetap">KebTdkTetap</string>
 </resources>
