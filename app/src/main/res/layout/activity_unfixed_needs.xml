@@ -20,7 +20,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_keb_tdk_tetap" />
     <android.support.v7.widget.RecyclerView
         android:layout_marginTop="65dp"
         android:layout_marginLeft="12dp"

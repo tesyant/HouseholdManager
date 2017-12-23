@@ -3,7 +3,7 @@ package com.lulua.tesyant.householdmanager.models;
 public class FixedNeeds extends Needs {
 
     private String tanggalBayar;
-    public FixedNeeds(){
+    public FixedNeeds() {
         super();
     }
     public FixedNeeds(String nama, int jumlah, double harga, String tglBayar) {
