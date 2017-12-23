@@ -6,10 +6,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.lulua.tesyant.householdmanager.R;
+import com.lulua.tesyant.householdmanager.models.UnfixedNeeds;
 
 import java.util.List;
-
-import models.Btidaktetap;
 
 /**
  * Created by USER on 12/22/2017.
@@ -17,7 +16,7 @@ import models.Btidaktetap;
 
 public class UnfixedNeedsAdapter extends RecyclerView.Adapter<UnfixedNeedsAdapter.MyViewHolder> {
 
-    private List<Btidaktetap> btidaktetaps;
+    private List<UnfixedNeeds> unfixedNeeds;
     private Activity activity;
 
     CustomItemClickListener listener;
@@ -40,7 +39,7 @@ public class UnfixedNeedsAdapter extends RecyclerView.Adapter<UnfixedNeedsAdapte
 
     @Override
     public void onBindViewHolder(UnfixedNeedsAdapter.MyViewHolder holder, int position) {
-        holder.title.setText(""+btidaktetaps.get(position).getName());
+        holder.title.setText(""+unfixedNeeds.get(position).getNama());
     }
 
     @Override
@@ -56,8 +55,8 @@ public class UnfixedNeedsAdapter extends RecyclerView.Adapter<UnfixedNeedsAdapte
         }
     }
 
-    public UnfixedNeedsAdapter(List<Btidaktetap> btidaktetaps, Activity activity, CustomItemClickListener listener){
-        this.btidaktetaps = btidaktetaps;
+    public UnfixedNeedsAdapter(List<UnfixedNeeds> unfixedNeeds, Activity activity, CustomItemClickListener listener){
+        this.unfixedNeeds = unfixedNeeds ;
         this.activity = activity;
         this.listener = listener;
     }
