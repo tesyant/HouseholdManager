@@ -20,6 +20,9 @@
             android:name="com.lulua.tesyant.householdmanager.activities.MainActivity"
             android:label="@string/title_activity_nav_drawer"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activities.AboutActivity"
+            android:label="@string/about_activity"
+            android:theme="@style/AppTheme"/>
     </application>
 
 </manifest>
