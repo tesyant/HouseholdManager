@@ -21,7 +21,7 @@ public class UnfixedNeedsAdapter extends RecyclerView.Adapter<UnfixedNeedsAdapte
     private List<UnfixedNeeds> unfixedNeeds;
     private Activity activity;
 
-    CustomItemClickListener listener;
+    CustomOnItemClickListener listener;
 
 
     @Override
@@ -57,7 +57,7 @@ public class UnfixedNeedsAdapter extends RecyclerView.Adapter<UnfixedNeedsAdapte
         }
     }
 
-    public UnfixedNeedsAdapter(List<UnfixedNeeds> unfixedNeeds, Activity activity, CustomItemClickListener listener){
+    public UnfixedNeedsAdapter(List<UnfixedNeeds> unfixedNeeds, Activity activity, CustomOnItemClickListener listener){
         this.unfixedNeeds = unfixedNeeds ;
         this.activity = activity;
         this.listener = listener;
