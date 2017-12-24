@@ -1,3 +1,5 @@
+package com.lulua.tesyant.householdmanager.adapter;
+
 import android.view.View;
 
 /**

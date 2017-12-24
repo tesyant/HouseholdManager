@@ -1,4 +1,4 @@
-package com.lulua.tesyant.householdmanager;
+package com.lulua.tesyant.householdmanager.activities;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -7,16 +7,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-public class KebTdkTetap extends AppCompatActivity {
+import com.lulua.tesyant.householdmanager.R;
+
+public class FixedNeedsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_keb_tdk_tetap);
+        setContentView(R.layout.activity_fixed_needs);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_title_keb_tdk_ttp);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_title_keb);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -1,3 +1,5 @@
+package com.lulua.tesyant.householdmanager.adapter;
+
 import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -24,7 +26,7 @@ public class UnfixedNeedsAdapter extends RecyclerView.Adapter<UnfixedNeedsAdapte
 
     @Override
     public UnfixedNeedsAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_keb_tdk_tetap, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_unfixed_needs, parent, false);
         final MyViewHolder myViewHolder = new MyViewHolder(view);
         view.setOnClickListener(new View.OnClickListener()
         {
