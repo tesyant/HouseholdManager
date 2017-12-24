@@ -1,5 +1,6 @@
 package com.lulua.tesyant.householdmanager.db;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -10,13 +11,20 @@ import com.lulua.tesyant.householdmanager.models.FixedNeeds;
 
 import java.util.ArrayList;
 
+import static com.lulua.tesyant.householdmanager.db.DatabaseContract.TABLE_FIXED_NEEDS;
+import static com.lulua.tesyant.householdmanager.db.DatabaseContract.FixedNeedsColumns.FIXED_DATE;
+import static com.lulua.tesyant.householdmanager.db.DatabaseContract.FixedNeedsColumns.FIXED_NAME;
+import static com.lulua.tesyant.householdmanager.db.DatabaseContract.FixedNeedsColumns.FIXED_PRICE;
+import static com.lulua.tesyant.householdmanager.db.DatabaseContract.FixedNeedsColumns.FIXED_QUANTITY;
+
+
 /**
  * Created by tesyant on 20/12/17.
  */
 
 public class FixedNeedsHelper {
 
-    private final String DATABASE_TABLE = DatabaseHelper.TABLE_NAME_KEB_TETAP;
+    private static String DATABASE_TABLE = TABLE_FIXED_NEEDS;
     private Context context;
     private DatabaseHelper databaseHelper;
     private SQLiteDatabase database;
@@ -35,24 +43,21 @@ public class FixedNeedsHelper {
         databaseHelper.close();
     }
 
-    public Cursor queryAllData() {
-        return database.rawQuery("SELECT * FROM " + DATABASE_TABLE + " ORDER BY " +
-                DatabaseHelper.FIELD_ID_BARANG_TETAP + " ASC", null);
-    }
-
-    public ArrayList<FixedNeeds> getAllData() {
-        ArrayList<FixedNeeds> arrayList = new ArrayList<>();
-        Cursor cursor = queryAllData();
+    public ArrayList<FixedNeeds> query() {
+        ArrayList<FixedNeeds> arrayList = new ArrayList<FixedNeeds>();
+        Cursor cursor = database.query(DATABASE_TABLE, null, null, null,
+                null, null, DatabaseContract.FixedNeedsColumns._ID + " DESC", null);
         cursor.moveToFirst();
         FixedNeeds fixedNeeds;
-        if (cursor.getCount() > 0) {
+        if (cursor.getCount()>0) {
             do {
                 fixedNeeds = new FixedNeeds();
-                fixedNeeds.setId(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.FIELD_ID_BARANG_TETAP)));
-                fixedNeeds.setNama(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.FIELD_NAMA_BARANG_TETAP)));
-                fixedNeeds.setHarga(cursor.getDouble(cursor.getColumnIndexOrThrow(DatabaseHelper.FIELD_HARGA)));
-                fixedNeeds.setJumlah(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.FIELD_JUMLAH)));
-                fixedNeeds.setTanggalBayar(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.FIELD_TGLBELI_TETAP)));
+                fixedNeeds.setId(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.FixedNeedsColumns._ID)));
+                fixedNeeds.setNama(cursor.getString(cursor.getColumnIndexOrThrow(FIXED_NAME)));
+                fixedNeeds.setHarga(cursor.getDouble(cursor.getColumnIndexOrThrow(FIXED_PRICE)));
+                fixedNeeds.setJumlah(cursor.getInt(cursor.getColumnIndexOrThrow(FIXED_QUANTITY)));
+                fixedNeeds.setTanggalBayar(cursor.getString(cursor.getColumnIndexOrThrow(FIXED_DATE)));
+
                 arrayList.add(fixedNeeds);
                 cursor.moveToNext();
             }
@@ -63,23 +68,33 @@ public class FixedNeedsHelper {
     }
 
     public void insertTransaction(ArrayList<FixedNeeds> fixedNeeds){
-        String sql="INSERT INTO "+DATABASE_TABLE + "("
-                + DatabaseHelper.FIELD_NAMA_BARANG_TETAP + ","
-                + DatabaseHelper.FIELD_TGLBELI_TETAP + ","
-                + DatabaseHelper.FIELD_JUMLAH + ","
-                + DatabaseHelper.FIELD_HARGA + ") VALUES(?, ?, ?, ?);";
+        String sql = "INSERT INTO " + DATABASE_TABLE + " ("
+                + FIXED_NAME + ", "
+                + FIXED_PRICE + ", "
+                + FIXED_QUANTITY + ", "
+                + FIXED_DATE + ") VALUES (?, ?, ?, ?);";
         database.beginTransaction();
 
         SQLiteStatement statement=database.compileStatement(sql);
         for(int i=0;i<fixedNeeds.size();i++){
-            statement.bindString(1,fixedNeeds.get(i).getNama());
+            statement.bindString(1, fixedNeeds.get(i).getNama());
             statement.bindString(2, String.valueOf(fixedNeeds.get(i).getTanggalBayar()));
-            statement.bindLong(3,fixedNeeds.get(i).getJumlah());
+            statement.bindLong(4,fixedNeeds.get(i).getJumlah());
             statement.bindDouble(4,fixedNeeds.get(i).getHarga());
             statement.execute();
             statement.clearBindings();
         }
         database.setTransactionSuccessful();
         database.endTransaction();
+    }
+
+    public int update(FixedNeeds fixedNeeds) {
+        ContentValues args = new ContentValues();
+        args.put(FIXED_NAME, fixedNeeds.getNama());
+        args.put(FIXED_PRICE, fixedNeeds.getHarga());
+        args.put(FIXED_QUANTITY, fixedNeeds.getJumlah());
+        args.put(FIXED_DATE, fixedNeeds.getTanggalBayar());
+        return database.update(DATABASE_TABLE, args, DatabaseContract.FixedNeedsColumns._ID
+                + "= '" + fixedNeeds.getId() + "'",null);
     }
 }
