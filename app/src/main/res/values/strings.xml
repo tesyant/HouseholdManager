@@ -16,7 +16,14 @@
     <string name="laporan">Laporan</string>
     <string name="language">Language</string>
     <string name="about_activity">About Activity</string>
+
     <string name="jenis_kebutuhan">Jenis Kebutuhan</string>
-    <string name="jenis_kebutuhan">Jenis Kebutuhan</string>
-    <string name="Jenis_kebutuhan">Jenis_kebutuhan</string>
+
+    <string name="nama_barang">Nama Barang</string>
+    <string name="jatuh_tempo">Jatuh Tempo</string>
+    <string name="tenggang_waktu">Tenggang Waktu</string>
+    <string name="tanggal">Tanggal: </string>
+    <string name="date_selected"></string>
+    <string name="setTanggal">Atur Tanggal</string>
+
 </resources>
