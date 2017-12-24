@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".activities.NavDrawerActivity">
+        <activity android:name=".activities.PreloadActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,8 +28,9 @@
             android:name=".activities.FixedNeedsActivity"
             android:label="Kebutuhan Tetap"
             android:theme="@style/AppTheme" />
-        <activity android:name=".activities.PreloadActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".activities.NavDrawerActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
