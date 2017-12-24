@@ -1,9 +1,9 @@
 bensin
 beras
-minyak sayur
+minyak-sayur
 tepung
 detergen
-sabun mandi
+sabun-mandi
 gas
 galon
 makeup
@@ -11,4 +11,4 @@ kopi
 teh
 susu
 pulsa
-kuota internet
+paket-internet
