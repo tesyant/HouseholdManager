@@ -26,7 +26,7 @@ public class FixedNeedsAdapter extends RecyclerView.Adapter<FixedNeedsAdapter.My
     @Override
     public FixedNeedsAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.activity_keb_tetap, parent, false);
+                .inflate(R.layout.activity_fixed_needs, parent, false);
         final MyViewHolder myViewHolder = new MyViewHolder(view);
         view.setOnClickListener(new View.OnClickListener() {
             @Override

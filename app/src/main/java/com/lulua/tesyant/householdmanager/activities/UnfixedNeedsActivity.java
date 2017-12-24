@@ -14,7 +14,7 @@ public class UnfixedNeedsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_keb_tdk_tetap);
+        setContentView(R.layout.activity_unfixed_needs);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
