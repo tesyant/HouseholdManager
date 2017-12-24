@@ -6,10 +6,9 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 
-import java.util.ArrayList;
-
 import com.lulua.tesyant.householdmanager.models.FixedNeeds;
-import com.lulua.tesyant.householdmanager.models.UnfixedNotes;
+
+import java.util.ArrayList;
 
 /**
  * Created by tesyant on 20/12/17.
@@ -49,6 +48,7 @@ public class FixedNeedsHelper {
         if (cursor.getCount() > 0) {
             do {
                 fixedNeeds = new FixedNeeds();
+                fixedNeeds.setId(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.FIELD_ID_BARANG_TETAP)));
                 fixedNeeds.setNama(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.FIELD_NAMA_BARANG_TETAP)));
                 fixedNeeds.setHarga(cursor.getDouble(cursor.getColumnIndexOrThrow(DatabaseHelper.FIELD_HARGA)));
                 fixedNeeds.setJumlah(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.FIELD_JUMLAH)));
@@ -63,11 +63,11 @@ public class FixedNeedsHelper {
     }
 
     public void insertTransaction(ArrayList<FixedNeeds> fixedNeeds){
-        String sql="INSERT INTO "+DATABASE_TABLE+"("
-                +DatabaseHelper.FIELD_NAMA_BARANG_TETAP+","
-                +DatabaseHelper.FIELD_TGLBELI_TETAP+","
-                +DatabaseHelper.FIELD_JUMLAH+","
-                +DatabaseHelper.FIELD_HARGA+") VALUES(?,?);";
+        String sql="INSERT INTO "+DATABASE_TABLE + "("
+                + DatabaseHelper.FIELD_NAMA_BARANG_TETAP + ","
+                + DatabaseHelper.FIELD_TGLBELI_TETAP + ","
+                + DatabaseHelper.FIELD_JUMLAH + ","
+                + DatabaseHelper.FIELD_HARGA + ") VALUES(?, ?, ?, ?);";
         database.beginTransaction();
 
         SQLiteStatement statement=database.compileStatement(sql);
@@ -82,10 +82,4 @@ public class FixedNeedsHelper {
         database.setTransactionSuccessful();
         database.endTransaction();
     }
-
-
-
-
-
-
 }

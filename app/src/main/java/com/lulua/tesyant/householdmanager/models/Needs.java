@@ -5,6 +5,16 @@ public class Needs {
     private String nama;
     private int jumlah;
     private double harga;
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
 
     public Needs(String nama, int jumlah, double harga) {
         this.nama = nama;
@@ -13,7 +23,6 @@ public class Needs {
     }
 
     public Needs() {
-
     }
 
     public String getNama() {

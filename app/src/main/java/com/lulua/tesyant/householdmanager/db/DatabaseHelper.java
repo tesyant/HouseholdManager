@@ -13,8 +13,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
     public static String DB_NAME = "dbKebutuhan";
 
-    public static String TABLE_NAME_KEB_TETAP = "KebTetap";
-    public static String TABLE_NAME_KEB_TDKTETAP = "KebTdkTetap";
+    public static String TABLE_NAME_KEB_TETAP = "FixedNeedsActivity";
+    public static String TABLE_NAME_KEB_TDKTETAP = "UnfixedNeedsActivity";
 
     public static String FIELD_ID_BARANG_TETAP = "IdBarang";
     public static String FIELD_NAMA_BARANG_TETAP = "NamaBarang";
