@@ -72,7 +72,6 @@ public class NavDrawerActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_laporan) {
-
         }
 
         else if (id == R.id.nav_tetap) {
