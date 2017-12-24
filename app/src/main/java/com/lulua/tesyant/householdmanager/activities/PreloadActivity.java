@@ -114,7 +114,6 @@ public class PreloadActivity extends Activity {
             int count = 0;
             do {
                 line = reader.readLine();
-                String[] splitstr = line.split("\t");
                 FixedNeeds fixedNeeds1;
                 fixedNeeds1 = new FixedNeeds();
                 fixedNeeds.add(fixedNeeds1);
@@ -139,7 +138,6 @@ public class PreloadActivity extends Activity {
             int count = 0;
             do {
                 line = reader.readLine();
-                String[] splitstr = line.split("\t");
                 UnfixedNeeds unfixedNeeds1;
                 unfixedNeeds1 = new UnfixedNeeds();
                 unfixedNeeds.add(unfixedNeeds1);
