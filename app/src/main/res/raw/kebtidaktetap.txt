@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 bensin
 beras
 minyak-sayur
@@ -12,3 +13,19 @@ teh
 susu
 pulsa
 paket-internet
+=======
+bensin
+beras
+minyak sayur
+tepung
+detergen
+sabun mandi
+gas
+galon
+makeup
+kopi
+teh
+susu
+pulsa
+kuota internet
+>>>>>>> 7a1a1e318ea7a24d3e042e52e17ac6fbef307bee
