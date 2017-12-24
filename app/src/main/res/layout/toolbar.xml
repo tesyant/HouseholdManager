@@ -6,12 +6,12 @@
     android:minHeight="?attr/actionBarSize"
     android:background="@color/colorPrimary"
     android:theme="@style/Base.ThemeOverlay.AppCompat.Dark"
-    android:popupTheme="@style/Theme.AppCompat.Light">
+    android:popupTheme="@style/Theme.AppCompat.Light"
+    android:id="@+id/toolbar">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/app_name"
         android:textColor="@android:color/white"
         style="@style/Base.TextAppearance.Widget.AppCompat.Toolbar.Title" />
 
