@@ -11,4 +11,11 @@
     <string name="tugas_akhir_pbo_2017">Tugas Akhir PBO 2017</string>
     <string name="versi_1_0">Versi 1.0</string>
     <string name="about">About</string>
+    <string name="kebutuhan_tidak_tetap">Kebutuhan Tidak Tetap</string>
+    <string name="kebutuhan_tetap">Kebutuhan Tetap</string>
+    <string name="laporan">Laporan</string>
+    <string name="language">Language</string>
+    <string name="about_activity">About Activity</string>
+    <string name="jenis_kebutuhan">Jenis Kebutuhan</string>
+    <string name="Jenis_kebutuhan">Jenis_kebutuhan</string>
 </resources>
