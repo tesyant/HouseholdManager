@@ -8,8 +8,8 @@ import android.provider.BaseColumns;
 
 public class DatabaseContract {
 
-    static String TABLE_FIXED_NEEDS = "fixedNeeds";
-    static String TABLE_UNFIXED_NEEDS = "unfixedNeeds";
+    static String TABLE_FIXED_NEEDS = "table_fixedNeeds";
+    static String TABLE_UNFIXED_NEEDS = "table_unfixedNeeds";
 
     static final class FixedNeedsColumns implements BaseColumns {
 

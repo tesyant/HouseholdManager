@@ -6,29 +6,22 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
+import android.util.Log;
 
 import com.lulua.tesyant.householdmanager.models.UnfixedNeeds;
 
 import java.util.ArrayList;
 
 import static android.provider.BaseColumns._ID;
-import static com.lulua.tesyant.householdmanager.db.DatabaseContract.FixedNeedsColumns.FIXED_DATE;
-import static com.lulua.tesyant.householdmanager.db.DatabaseContract.FixedNeedsColumns.FIXED_NAME;
-import static com.lulua.tesyant.householdmanager.db.DatabaseContract.FixedNeedsColumns.FIXED_PRICE;
-import static com.lulua.tesyant.householdmanager.db.DatabaseContract.FixedNeedsColumns.FIXED_QUANTITY;
 import static com.lulua.tesyant.householdmanager.db.DatabaseContract.TABLE_UNFIXED_NEEDS;
-import static com.lulua.tesyant.householdmanager.db.DatabaseContract.UnfixedNeedsColumns.UNFIXED_DATE;
 import static com.lulua.tesyant.householdmanager.db.DatabaseContract.UnfixedNeedsColumns.UNFIXED_NAME;
-import static com.lulua.tesyant.householdmanager.db.DatabaseContract.UnfixedNeedsColumns.UNFIXED_PRICE;
-import static com.lulua.tesyant.householdmanager.db.DatabaseContract.UnfixedNeedsColumns.UNFIXED_QUANTITY;
-
 
 /**
  * Created by HP Envy on 23/12/2017.
  */
 
 public class UnfixedNeedsHelper {
-    private static String DATABASE_TABLE = TABLE_UNFIXED_NEEDS;
+
     private Context context;
     private DatabaseHelper databaseHelper;
     private SQLiteDatabase database;
@@ -47,20 +40,17 @@ public class UnfixedNeedsHelper {
         databaseHelper.close();
     }
 
-    public ArrayList<UnfixedNeeds> query() {
-        ArrayList<UnfixedNeeds> arrayList = new ArrayList<UnfixedNeeds>();
-        Cursor cursor = database.query(DATABASE_TABLE, null, null, null,
-                null, null, _ID + " DESC", null);
+    public ArrayList<UnfixedNeeds> getAllData() {
+        Cursor cursor = database.query(TABLE_UNFIXED_NEEDS, null, null, null,
+                null, null, _ID + " ASC", null );
         cursor.moveToFirst();
+        ArrayList<UnfixedNeeds> arrayList = new ArrayList<>();
         UnfixedNeeds unfixedNeeds;
-        if (cursor.getCount()>0) {
+        if (cursor.getCount() > 0) {
             do {
                 unfixedNeeds = new UnfixedNeeds();
                 unfixedNeeds.setId(cursor.getInt(cursor.getColumnIndexOrThrow(_ID)));
                 unfixedNeeds.setNama(cursor.getString(cursor.getColumnIndexOrThrow(UNFIXED_NAME)));
-                unfixedNeeds.setHarga(cursor.getDouble(cursor.getColumnIndexOrThrow(UNFIXED_PRICE)));
-                unfixedNeeds.setJumlah(cursor.getInt(cursor.getColumnIndexOrThrow(UNFIXED_QUANTITY)));
-                unfixedNeeds.setTglBeli(cursor.getString(cursor.getColumnIndexOrThrow(UNFIXED_DATE)));
 
                 arrayList.add(unfixedNeeds);
                 cursor.moveToNext();
@@ -72,33 +62,32 @@ public class UnfixedNeedsHelper {
     }
 
     public void insertTransaction(ArrayList<UnfixedNeeds> unfixedNeeds){
-        String sql = "INSERT INTO " + DATABASE_TABLE + " ("
-                + UNFIXED_NAME + ", "
-                + UNFIXED_PRICE + ", "
-                + UNFIXED_QUANTITY + ", "
-                + UNFIXED_DATE + ") VALUES (?, ?, ?, ?);";
+        String sql = "INSERT INTO " + TABLE_UNFIXED_NEEDS
+                + " ("
+                + UNFIXED_NAME + ") VALUES (?);";
+
         database.beginTransaction();
 
-        SQLiteStatement statement=database.compileStatement(sql);
-        for(int i=0; i<unfixedNeeds.size();i++){
+        SQLiteStatement statement = database.compileStatement(sql);
+        for (int i = 0; i < unfixedNeeds.size(); i++) {
             statement.bindString(1, unfixedNeeds.get(i).getNama());
-            statement.bindString(2, String.valueOf(unfixedNeeds.get(i).getTglBeli()));
-            statement.bindLong(4,unfixedNeeds.get(i).getJumlah());
-            statement.bindDouble(4,unfixedNeeds.get(i).getHarga());
             statement.execute();
             statement.clearBindings();
         }
         database.setTransactionSuccessful();
         database.endTransaction();
+        Log.e("Insert", "Check");
     }
 
-    public int update(UnfixedNeeds unfixedNeeds) {
+    public void update(UnfixedNeeds unfixedNeeds) {
         ContentValues args = new ContentValues();
-        args.put(FIXED_NAME, unfixedNeeds.getNama());
-        args.put(FIXED_PRICE, unfixedNeeds.getHarga());
-        args.put(FIXED_QUANTITY, unfixedNeeds.getJumlah());
-        args.put(FIXED_DATE, unfixedNeeds.getTglBeli());
-        return database.update(DATABASE_TABLE, args, _ID
-                + "= '" + unfixedNeeds.getId() + "'",null);
+        args.put(UNFIXED_NAME, unfixedNeeds.getNama());
+        database.update(TABLE_UNFIXED_NEEDS, args, _ID
+                + " = '" + unfixedNeeds.getId() + "'", null);
+    }
+
+    public void delete(int id) {
+        database.delete(TABLE_UNFIXED_NEEDS, _ID
+                + " = '" + id + "'", null);
     }
 }
