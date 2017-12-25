@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.lulua.tesyant.householdmanager.activities.ReportActivity">
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <include layout="@layout/toolbar" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <TextView
+        android:id="@+id/js_keb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="70dp"
+        android:text="Jenis kebutuhan"
+        android:textSize="16dp" />
+    <Spinner
+        android:id="@+id/spinner_jn_keb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="70dp"
+        android:layout_toEndOf="@+id/nm_keb">
+    </Spinner>
+    <TextView
+        android:id="@+id/nm_keb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        android:layout_marginLeft="20dp"
+        android:text="Nama Kebutuhan"
+        android:textSize="16dp"/>
+
+    <Spinner
+        android:id="@+id/spinner_nm_keb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="120dp"
+        android:layout_toEndOf="@+id/nm_keb">
+    </Spinner>
+
+    <TextView
+        android:id="@+id/wkt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="170dp"
+        android:layout_marginLeft="20dp"
+        android:text="Waktu"
+        android:textSize="16dp"/>
+    <Spinner
+        android:id="@+id/spinner_wkt_bln"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="170dp"
+        android:layout_toEndOf="@+id/nm_keb">
+    </Spinner>
+
+    <Spinner
+        android:id="@+id/spinner_wkt_thn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/spinner_wkt_bln"
+        android:layout_alignBottom="@+id/spinner_wkt_bln"
+        android:layout_alignParentEnd="true">
+    </Spinner>
+
+    <Button
+        android:id="@+id/button_clear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="220dp"
+        android:background="#67087b"
+        android:textColor="#ffff"
+        android:text="clear"/>
+
+    <Button
+        android:id="@+id/button_OK"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/button_clear"
+        android:layout_alignBottom="@+id/button_clear"
+        android:layout_toEndOf="@+id/spinner_wkt_bln"
+        android:background="#67087b"
+        android:text="Ok"
+        android:textColor="#ffff" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="280dp"
+        android:gravity="center_horizontal"
+        android:text="Tabel Laporan "
+        android:textSize="16dp" />
+
+    <TableRow
+        android:layout_height="match_parent"
+        android:layout_width="fill_parent"
+        android:gravity="center_horizontal">
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12dp"
+        android:text="Jenis Kebutuhan"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="310dp"
+        android:layout_span="3"
+        android:gravity="center"
+      />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12dp"
+            android:text="Nama Kebutuhan"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="310dp"
+            android:layout_span="3"
+            android:gravity="center"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12dp"
+            android:text="Waktu"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="310dp"
+            android:layout_span="3"
+            android:gravity="center"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12dp"
+            android:text="Jumlah"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="310dp"
+            android:layout_span="3"
+            android:gravity="center"
+          />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12dp"
+            android:text="Total"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="310dp"
+            android:layout_span="3"
+            android:gravity="center"
+            />
+
+    </TableRow>
+
+</RelativeLayout>
