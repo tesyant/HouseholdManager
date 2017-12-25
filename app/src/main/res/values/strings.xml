@@ -6,4 +6,25 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="members">Annisa KS, Dini, Muftia, Tesya, Mardiyah</string>
+    <string name="oleh">Oleh :</string>
+    <string name="tugas_akhir_pbo_2017">Tugas Akhir PBO 2017</string>
+    <string name="versi_1_0">Versi 1.0</string>
+    <string name="about">About</string>
+    <string name="kebutuhan_tidak_tetap">Kebutuhan Tidak Tetap</string>
+    <string name="kebutuhan_tetap">Kebutuhan Tetap</string>
+    <string name="laporan">Laporan</string>
+    <string name="language">Language</string>
+    <string name="about_activity">About Activity</string>
+
+    <string name="jenis_kebutuhan">Jenis Kebutuhan</string>
+
+    <string name="nama_barang">Nama Barang</string>
+    <string name="jatuh_tempo">Jatuh Tempo</string>
+    <string name="tenggang_waktu">Tenggang Waktu</string>
+    <string name="tanggal">Tanggal: </string>
+    <string name="date_selected"></string>
+    <string name="setTanggal">Atur Tanggal</string>
+    <string name="tambah">tambah</string>
+
 </resources>

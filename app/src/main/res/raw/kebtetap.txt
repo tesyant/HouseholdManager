@@ -1,0 +1,8 @@
+pajak-motor
+spp
+listrik
+biaya-wifi
+biaya-pdam
+biaya-telepon
+biaya-sampah
+pajak-bangunan

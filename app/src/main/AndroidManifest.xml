@@ -8,8 +8,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".activities.FixedNeedsAddActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -17,9 +17,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".NavDrawerActivity"
+            android:name=".activities.MainActivity"
             android:label="@string/title_activity_nav_drawer"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.AboutActivity"
+            android:label="@string/about_activity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.FixedNeedsActivity"
+            android:label="Kebutuhan Tetap"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>
