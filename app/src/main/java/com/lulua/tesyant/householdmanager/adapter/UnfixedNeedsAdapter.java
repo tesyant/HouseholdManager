@@ -9,9 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.lulua.tesyant.householdmanager.R;
-import com.lulua.tesyant.householdmanager.activities.AddFixedNeedsActivity;
 import com.lulua.tesyant.householdmanager.activities.AddUnfixedNeedsActivity;
-import com.lulua.tesyant.householdmanager.models.FixedNeeds;
 import com.lulua.tesyant.householdmanager.models.UnfixedNeeds;
 
 import java.util.LinkedList;
@@ -50,8 +48,8 @@ public class UnfixedNeedsAdapter extends RecyclerView.Adapter<UnfixedNeedsAdapte
             @Override
             public void onItemClicked(View view, int position) {
                 Intent intent = new Intent(activity, AddUnfixedNeedsActivity.class);
-                intent.putExtra(AddUnfixedNeedsActivity.EXTRA_POSITION, position);
-                intent.putExtra(AddUnfixedNeedsActivity.EXTRA_FIXED_NEEDS, getListUnfixedNeeds().get(position));
+                intent.putExtra(AddUnfixedNeedsActivity.EXTRA_UNFIXED_POSITION, position);
+                intent.putExtra(AddUnfixedNeedsActivity.EXTRA_UNFIXED_NEEDS, String.valueOf(getListUnfixedNeeds().get(position)));
                 activity.startActivityForResult(intent, AddUnfixedNeedsActivity.REQUEST_UPDATE);
             }
         }));

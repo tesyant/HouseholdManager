@@ -1,7 +1,6 @@
 package com.lulua.tesyant.householdmanager.adapter;
 
-import android.app.Activity;
-import android.content.Intent;
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,10 +8,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.lulua.tesyant.householdmanager.R;
-import com.lulua.tesyant.householdmanager.activities.AddFixedNeedsActivity;
 import com.lulua.tesyant.householdmanager.models.FixedNeeds;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 /**
  * Created by USER on 12/21/2017.
@@ -20,19 +18,13 @@ import java.util.LinkedList;
 
 public class FixedNeedsAdapter extends RecyclerView.Adapter<FixedNeedsAdapter.FixedViewHolder> {
 
-    private LinkedList<FixedNeeds> listFixedNeeds;
-    private Activity activity;
+    private ArrayList<FixedNeeds> fixedNeeds = new ArrayList<>();
+    private Context context;
+    private LayoutInflater inflater;
 
-    public FixedNeedsAdapter(Activity activity) {
-        this.activity = activity;
-    }
-
-    public LinkedList<FixedNeeds> getListFixedNeeds() {
-        return listFixedNeeds;
-    }
-
-    public void setListFixedNeeds(LinkedList<FixedNeeds> listFixedNeeds) {
-        this.listFixedNeeds = listFixedNeeds;
+    public FixedNeedsAdapter(Context context) {
+        this.context = context;
+        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
@@ -41,23 +33,29 @@ public class FixedNeedsAdapter extends RecyclerView.Adapter<FixedNeedsAdapter.Fi
         return new FixedViewHolder(view);
     }
 
+    public void addItem(ArrayList<FixedNeeds> mData) {
+        this.fixedNeeds = mData;
+        notifyDataSetChanged();
+    }
+
     @Override
     public void onBindViewHolder(FixedNeedsAdapter.FixedViewHolder holder, int position) {
-        holder.tvName.setText(getListFixedNeeds().get(position).getNama());
-        holder.tvName.setOnClickListener(new CustomOnItemClickListener(position, new CustomOnItemClickListener.OnItemClickCallback() {
-            @Override
-            public void onItemClicked(View view, int position) {
-                Intent intent = new Intent(activity, AddFixedNeedsActivity.class);
-                intent.putExtra(AddFixedNeedsActivity.EXTRA_POSITION, position);
-                intent.putExtra(AddFixedNeedsActivity.EXTRA_FIXED_NEEDS, getListFixedNeeds().get(position));
-                activity.startActivityForResult(intent, AddFixedNeedsActivity.REQUEST_UPDATE);
-            }
-        }));
+        holder.tvName.setText(fixedNeeds.get(position).getNama());
+    }
+
+    @Override
+    public int getItemViewType (int position) {
+        return 0;
+    }
+
+    @Override
+    public long getItemId (int position) {
+        return position;
     }
 
     @Override
     public int getItemCount() {
-        return getListFixedNeeds().size();
+        return fixedNeeds.size();
     }
 
     public class FixedViewHolder extends RecyclerView.ViewHolder {

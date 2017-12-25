@@ -4,8 +4,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.lulua.tesyant.householdmanager.R;
+import com.lulua.tesyant.householdmanager.adapter.FixedNeedsAdapter;
 import com.lulua.tesyant.householdmanager.db.FixedNeedsHelper;
 import com.lulua.tesyant.householdmanager.models.FixedNeeds;
 
@@ -13,8 +15,9 @@ import java.util.ArrayList;
 
 public class FixedNeedsActivity extends AppCompatActivity {
 
-    private FixedNeedsHelper fixedNeedsHelper;
-    private RecyclerView recyclerView;
+    FixedNeedsHelper fixedNeedsHelper;
+    FixedNeedsAdapter fixedNeedsAdapter;
+    RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,24 +27,16 @@ public class FixedNeedsActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.btn_recyclerview);
 
         fixedNeedsHelper = new FixedNeedsHelper(this);
-        fixedNeedsHelper.open();
+        fixedNeedsAdapter = new FixedNeedsAdapter(this);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(fixedNeedsAdapter);
 
-        ArrayList<FixedNeeds> result = new ArrayList<>();
-        result = fixedNeedsHelper.getAllData();
+        fixedNeedsHelper.open();
+        ArrayList<FixedNeeds> fixedNeeds = fixedNeedsHelper.getAllData();
+        Log.e("test", "ok");
 
-        final String[] results = new String[result.size()];
-
-        if (result.size() > 0) {
-            for (int i=0; i<result.size(); i++) {
-                results[i] = String.valueOf(result.get(i));
-            }
-        }
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(linearLayoutManager);
-
+        fixedNeedsHelper.close();
+        fixedNeedsAdapter.addItem(fixedNeeds);
     }
 }
