@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.lulua.tesyant.householdmanager.R;
-import com.lulua.tesyant.householdmanager.activities.MainActivity;
+import com.lulua.tesyant.householdmanager.activities.AddFixedNeedsActivity;
 import com.lulua.tesyant.householdmanager.models.FixedNeeds;
 
 import java.util.LinkedList;
@@ -47,15 +47,17 @@ public class FixedNeedsAdapter extends RecyclerView.Adapter<FixedNeedsAdapter.Fi
         holder.tvName.setOnClickListener(new CustomOnItemClickListener(position, new CustomOnItemClickListener.OnItemClickCallback() {
             @Override
             public void onItemClicked(View view, int position) {
-                Intent intent = new Intent(activity, MainActivity.class);
-                intent.putExtra(MainActivity,EXTRA_POSITIO)
+                Intent intent = new Intent(activity, AddFixedNeedsActivity.class);
+                intent.putExtra(AddFixedNeedsActivity.EXTRA_POSITION, position);
+                intent.putExtra(AddFixedNeedsActivity.EXTRA_FIXED_NEEDS, getListFixedNeeds().get(position));
+                activity.startActivityForResult(intent, AddFixedNeedsActivity.REQUEST_UPDATE);
             }
         }));
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return getListFixedNeeds().size();
     }
 
     public class FixedViewHolder extends RecyclerView.ViewHolder {

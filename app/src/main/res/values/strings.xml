@@ -25,5 +25,6 @@
     <string name="tanggal">Tanggal: </string>
     <string name="date_selected"></string>
     <string name="setTanggal">Atur Tanggal</string>
+    <string name="tambah">tambah</string>
 
 </resources>

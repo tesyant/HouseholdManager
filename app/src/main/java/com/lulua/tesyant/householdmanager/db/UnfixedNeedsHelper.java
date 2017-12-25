@@ -1,5 +1,6 @@
 package com.lulua.tesyant.householdmanager.db;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -10,73 +11,79 @@ import com.lulua.tesyant.householdmanager.models.UnfixedNeeds;
 
 import java.util.ArrayList;
 
+import static com.lulua.tesyant.householdmanager.db.DatabaseContract.FixedNeedsColumns.FIXED_DATE;
+import static com.lulua.tesyant.householdmanager.db.DatabaseContract.FixedNeedsColumns.FIXED_NAME;
+import static com.lulua.tesyant.householdmanager.db.DatabaseContract.FixedNeedsColumns.FIXED_PRICE;
+import static com.lulua.tesyant.householdmanager.db.DatabaseContract.FixedNeedsColumns.FIXED_QUANTITY;
+import static com.lulua.tesyant.householdmanager.db.DatabaseContract.TABLE_UNFIXED_NEEDS;
+import static com.lulua.tesyant.householdmanager.db.DatabaseContract.UnfixedNeedsColumns.UNFIXED_DATE;
+import static com.lulua.tesyant.householdmanager.db.DatabaseContract.UnfixedNeedsColumns.UNFIXED_NAME;
+import static com.lulua.tesyant.householdmanager.db.DatabaseContract.UnfixedNeedsColumns.UNFIXED_PRICE;
+import static com.lulua.tesyant.householdmanager.db.DatabaseContract.UnfixedNeedsColumns.UNFIXED_QUANTITY;
+
 
 /**
  * Created by HP Envy on 23/12/2017.
  */
 
 public class UnfixedNeedsHelper {
-    private static String DATABASE_TABLE = DatabaseHelper.TABLE_NAME_KEB_TDKTETAP;
+    private static String DATABASE_TABLE = TABLE_UNFIXED_NEEDS;
     private Context context;
-    DatabaseHelper databaseHelper;
-
+    private DatabaseHelper databaseHelper;
     private SQLiteDatabase database;
 
-    public UnfixedNeedsHelper(Context context){
+    public UnfixedNeedsHelper (Context context) {
         this.context = context;
     }
 
-    public UnfixedNeedsHelper open() throws SQLException{
+    public UnfixedNeedsHelper open() throws SQLException {
         databaseHelper = new DatabaseHelper(context);
         database = databaseHelper.getWritableDatabase();
         return this;
     }
 
-    public void close(){
+    public void close() {
         databaseHelper.close();
     }
 
-    public Cursor queryAllData() {
-        return database.rawQuery("SELECT * FROM "+  DATABASE_TABLE + "ORDER BY" + DatabaseHelper
-                .FIELD_ID_BARANG_TDKTETAP + " ASC ", null);
+    public ArrayList<UnfixedNeeds> query() {
+        ArrayList<UnfixedNeeds> arrayList = new ArrayList<UnfixedNeeds>();
+        Cursor cursor = database.query(DATABASE_TABLE, null, null, null,
+                null, null, DatabaseContract.UnfixedNeedsColumns._ID + " DESC", null);
+        cursor.moveToFirst();
+        UnfixedNeeds unfixedNeeds;
+        if (cursor.getCount()>0) {
+            do {
+                unfixedNeeds = new UnfixedNeeds();
+                unfixedNeeds.setId(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.UnfixedNeedsColumns._ID)));
+                unfixedNeeds.setNama(cursor.getString(cursor.getColumnIndexOrThrow(UNFIXED_NAME)));
+                unfixedNeeds.setHarga(cursor.getDouble(cursor.getColumnIndexOrThrow(UNFIXED_PRICE)));
+                unfixedNeeds.setJumlah(cursor.getInt(cursor.getColumnIndexOrThrow(UNFIXED_QUANTITY)));
+                unfixedNeeds.setTglBeli(cursor.getString(cursor.getColumnIndexOrThrow(UNFIXED_DATE)));
+
+                arrayList.add(unfixedNeeds);
+                cursor.moveToNext();
+            }
+            while (!cursor.isAfterLast());
+        }
+        cursor.close();
+        return arrayList;
     }
 
-    public ArrayList<UnfixedNeeds> getAllData() {
-       ArrayList<UnfixedNeeds> arrayList = new ArrayList<>();
-       Cursor cursor = queryAllData();
-       cursor.moveToFirst();
-       UnfixedNeeds unfixedNeeds;
-       if(cursor.getCount() > 0) {
-           do {
-               unfixedNeeds =new UnfixedNeeds();
-               unfixedNeeds.setId(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.FIELD_ID_BARANG_TDKTETAP)));
-               unfixedNeeds.setNama(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.FIELD_NAMA_BARANG_TDKTETAP)));
-               unfixedNeeds.setTglBeli(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.FIELD_TGLBELI_TDKTETAP)));
-               unfixedNeeds.setJumlah(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.FIELD_JUMLAH)));
-               unfixedNeeds.setHarga(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.FIELD_HARGA)));
-           }
-           while (!cursor.isAfterLast());
-       }
-
-       cursor.close();
-       return arrayList;
-    }
-
-
-    public void insertTransaction(ArrayList<UnfixedNeeds> unfixedNotes) {
-        String sql = "INSERT INTO "+DATABASE_TABLE + "("
-                + DatabaseHelper.FIELD_NAMA_BARANG_TDKTETAP + ","
-                + DatabaseHelper.FIELD_TGLBELI_TDKTETAP + ","
-                + DatabaseHelper.FIELD_JUMLAH + ","
-                + DatabaseHelper.FIELD_HARGA + ") VALUES(?, ?, ?, ?);";
+    public void insertTransaction(ArrayList<UnfixedNeeds> unfixedNeeds){
+        String sql = "INSERT INTO " + DATABASE_TABLE + " ("
+                + UNFIXED_NAME + ", "
+                + UNFIXED_PRICE + ", "
+                + UNFIXED_QUANTITY + ", "
+                + UNFIXED_DATE + ") VALUES (?, ?, ?, ?);";
         database.beginTransaction();
 
-        SQLiteStatement statement = database.compileStatement(sql);
-        for (int i=0; i<unfixedNotes.size(); i++) {
-            statement.bindString(1,unfixedNotes.get(i).getNama());
-            statement.bindString(2, String.valueOf(unfixedNotes.get(i).getTglBeli()));
-            statement.bindLong(3,unfixedNotes.get(i).getJumlah());
-            statement.bindDouble(4,unfixedNotes.get(i).getHarga());
+        SQLiteStatement statement=database.compileStatement(sql);
+        for(int i=0;i<unfixedNeeds.size();i++){
+            statement.bindString(1, unfixedNeeds.get(i).getNama());
+            statement.bindString(2, String.valueOf(unfixedNeeds.get(i).getTglBeli()));
+            statement.bindLong(4,unfixedNeeds.get(i).getJumlah());
+            statement.bindDouble(4,unfixedNeeds.get(i).getHarga());
             statement.execute();
             statement.clearBindings();
         }
@@ -84,8 +91,13 @@ public class UnfixedNeedsHelper {
         database.endTransaction();
     }
 
-    public void delete(int id) {
-        database.delete(DatabaseHelper.TABLE_NAME_KEB_TDKTETAP,DatabaseHelper
-                .FIELD_ID_BARANG_TDKTETAP + " = " + id + "'",null);
+    public int update(UnfixedNeeds unfixedNeeds) {
+        ContentValues args = new ContentValues();
+        args.put(FIXED_NAME, unfixedNeeds.getNama());
+        args.put(FIXED_PRICE, unfixedNeeds.getHarga());
+        args.put(FIXED_QUANTITY, unfixedNeeds.getJumlah());
+        args.put(FIXED_DATE, unfixedNeeds.getTglBeli());
+        return database.update(DATABASE_TABLE, args, DatabaseContract.UnfixedNeedsColumns._ID
+                + "= '" + unfixedNeeds.getId() + "'",null);
     }
 }

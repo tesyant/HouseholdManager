@@ -1,6 +1,7 @@
 package com.lulua.tesyant.householdmanager.adapter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,58 +9,66 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.lulua.tesyant.householdmanager.R;
+import com.lulua.tesyant.householdmanager.activities.AddFixedNeedsActivity;
+import com.lulua.tesyant.householdmanager.activities.AddUnfixedNeedsActivity;
+import com.lulua.tesyant.householdmanager.models.FixedNeeds;
 import com.lulua.tesyant.householdmanager.models.UnfixedNeeds;
 
-import java.util.List;
+import java.util.LinkedList;
 
 /**
  * Created by USER on 12/22/2017.
  */
 
-public class UnfixedNeedsAdapter extends RecyclerView.Adapter<UnfixedNeedsAdapter.MyViewHolder> {
+public class UnfixedNeedsAdapter extends RecyclerView.Adapter<UnfixedNeedsAdapter.UnfixedViewHolder> {
 
-    private List<UnfixedNeeds> unfixedNeeds;
+    private LinkedList<UnfixedNeeds> listUnfixedNeeds;
     private Activity activity;
 
-    CustomOnItemClickListener listener;
+    public UnfixedNeedsAdapter(Activity activity) {
+        this.activity = activity;
+    }
 
+    public LinkedList<UnfixedNeeds> getListUnfixedNeeds() {
+        return listUnfixedNeeds;
+    }
 
-    @Override
-    public UnfixedNeedsAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_unfixed_needs, parent, false);
-        final MyViewHolder myViewHolder = new MyViewHolder(view);
-        view.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view){
-                listener.onItemClick(view, myViewHolder.getAdapterPosition());
-            }
-        });
-
-        return null;
+    public void setListUnfixedNeeds(LinkedList<UnfixedNeeds> listUnfixedNeeds) {
+        this.listUnfixedNeeds = listUnfixedNeeds;
     }
 
     @Override
-    public void onBindViewHolder(UnfixedNeedsAdapter.MyViewHolder holder, int position) {
-        holder.title.setText(""+unfixedNeeds.get(position).getNama());
+    public UnfixedNeedsAdapter.UnfixedViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_item_needs, parent, false);
+        return new UnfixedViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(UnfixedNeedsAdapter.UnfixedViewHolder holder, int position) {
+        holder.tvName.setText(getListUnfixedNeeds().get(position).getNama());
+        holder.tvName.setOnClickListener(new CustomOnItemClickListener(position, new CustomOnItemClickListener.OnItemClickCallback() {
+            @Override
+            public void onItemClicked(View view, int position) {
+                Intent intent = new Intent(activity, AddUnfixedNeedsActivity.class);
+                intent.putExtra(AddUnfixedNeedsActivity.EXTRA_POSITION, position);
+                intent.putExtra(AddUnfixedNeedsActivity.EXTRA_FIXED_NEEDS, getListUnfixedNeeds().get(position));
+                activity.startActivityForResult(intent, AddUnfixedNeedsActivity.REQUEST_UPDATE);
+            }
+        }));
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return getListUnfixedNeeds().size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView title;
-        public MyViewHolder(View itemView) {
-            super(itemView);
-            title = (TextView) itemView.findViewById(R.id.fab_title_keb_tdk_ttp);
+    public class UnfixedViewHolder extends RecyclerView.ViewHolder {
+        TextView tvName;
+
+        public UnfixedViewHolder(View view) {
+            super(view);
+            tvName = view.findViewById(R.id.tv_item);
+
         }
-    }
-
-    public UnfixedNeedsAdapter(List<UnfixedNeeds> unfixedNeeds, Activity activity, CustomOnItemClickListener listener){
-        this.unfixedNeeds = unfixedNeeds ;
-        this.activity = activity;
-        this.listener = listener;
     }
 }
