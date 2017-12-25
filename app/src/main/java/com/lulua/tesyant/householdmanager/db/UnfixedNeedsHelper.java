@@ -11,6 +11,7 @@ import com.lulua.tesyant.householdmanager.models.UnfixedNeeds;
 
 import java.util.ArrayList;
 
+import static android.provider.BaseColumns._ID;
 import static com.lulua.tesyant.householdmanager.db.DatabaseContract.FixedNeedsColumns.FIXED_DATE;
 import static com.lulua.tesyant.householdmanager.db.DatabaseContract.FixedNeedsColumns.FIXED_NAME;
 import static com.lulua.tesyant.householdmanager.db.DatabaseContract.FixedNeedsColumns.FIXED_PRICE;
@@ -49,13 +50,13 @@ public class UnfixedNeedsHelper {
     public ArrayList<UnfixedNeeds> query() {
         ArrayList<UnfixedNeeds> arrayList = new ArrayList<UnfixedNeeds>();
         Cursor cursor = database.query(DATABASE_TABLE, null, null, null,
-                null, null, DatabaseContract.UnfixedNeedsColumns._ID + " DESC", null);
+                null, null, _ID + " DESC", null);
         cursor.moveToFirst();
         UnfixedNeeds unfixedNeeds;
         if (cursor.getCount()>0) {
             do {
                 unfixedNeeds = new UnfixedNeeds();
-                unfixedNeeds.setId(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.UnfixedNeedsColumns._ID)));
+                unfixedNeeds.setId(cursor.getInt(cursor.getColumnIndexOrThrow(_ID)));
                 unfixedNeeds.setNama(cursor.getString(cursor.getColumnIndexOrThrow(UNFIXED_NAME)));
                 unfixedNeeds.setHarga(cursor.getDouble(cursor.getColumnIndexOrThrow(UNFIXED_PRICE)));
                 unfixedNeeds.setJumlah(cursor.getInt(cursor.getColumnIndexOrThrow(UNFIXED_QUANTITY)));
@@ -79,7 +80,7 @@ public class UnfixedNeedsHelper {
         database.beginTransaction();
 
         SQLiteStatement statement=database.compileStatement(sql);
-        for(int i=0;i<unfixedNeeds.size();i++){
+        for(int i=0; i<unfixedNeeds.size();i++){
             statement.bindString(1, unfixedNeeds.get(i).getNama());
             statement.bindString(2, String.valueOf(unfixedNeeds.get(i).getTglBeli()));
             statement.bindLong(4,unfixedNeeds.get(i).getJumlah());
@@ -97,7 +98,7 @@ public class UnfixedNeedsHelper {
         args.put(FIXED_PRICE, unfixedNeeds.getHarga());
         args.put(FIXED_QUANTITY, unfixedNeeds.getJumlah());
         args.put(FIXED_DATE, unfixedNeeds.getTglBeli());
-        return database.update(DATABASE_TABLE, args, DatabaseContract.UnfixedNeedsColumns._ID
+        return database.update(DATABASE_TABLE, args, _ID
                 + "= '" + unfixedNeeds.getId() + "'",null);
     }
 }

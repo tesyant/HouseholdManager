@@ -1,14 +1,16 @@
-package com.lulua.tesyant.householdmanager.activities;
+package com.lulua.tesyant.householdmanager;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.lulua.tesyant.householdmanager.R;
+import com.lulua.tesyant.householdmanager.activities.AppPreference;
+import com.lulua.tesyant.householdmanager.activities.NavDrawerActivity;
 import com.lulua.tesyant.householdmanager.db.FixedNeedsHelper;
 import com.lulua.tesyant.householdmanager.db.UnfixedNeedsHelper;
 import com.lulua.tesyant.householdmanager.models.FixedNeeds;
@@ -20,20 +22,21 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-//import com.lulua.tesyant.householdmanager.db.UnfixedNeedsHelper;
+public class PreloadActivity extends AppCompatActivity {
 
-public class PreloadActivity extends Activity {
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preload);
+        progressBar = findViewById(R.id.progressBar);
 
         new LoadData().execute();
     }
 
-    private class LoadData extends AsyncTask<Void, Integer, Void>{
-
+    private class LoadData extends AsyncTask<Void, Integer, Void> {
+        final String TAG = LoadData.class.getSimpleName();
         FixedNeedsHelper fixedNeedsHelper;
         UnfixedNeedsHelper unfixedNeedsHelper;
         AppPreference appPreference;
@@ -53,17 +56,21 @@ public class PreloadActivity extends Activity {
             Log.d("First Run ", ": " + firstRun);
 
             if (firstRun) {
+
                 ArrayList<FixedNeeds> fixedNeeds = preLoadRaw();
                 ArrayList<UnfixedNeeds> unfixedNeeds = preLoadInRaw();
-                Log.d("size", " : " + fixedNeeds.size());
+                Log.e("Size Fixed", String.valueOf(fixedNeeds.size()));
+                Log.e("Size Unfixed", String.valueOf(unfixedNeeds.size()));
+
                 progress = 30;
-                publishProgress((int)progress);
+                publishProgress((int) progress);
+
                 fixedNeedsHelper.open();
                 unfixedNeedsHelper.open();
 
                 Double progressMaxInsert = 80.0;
                 Double progressFixedDiff = (progressMaxInsert - progress) / fixedNeeds.size();
-                Double progressUnfixedDiff = (progressFixedDiff - progress) / unfixedNeeds.size();
+                Double progressUnfixedDiff = (progressMaxInsert - progress) / unfixedNeeds.size();
 
                 fixedNeedsHelper.insertTransaction(fixedNeeds);
                 unfixedNeedsHelper.insertTransaction(unfixedNeeds);
@@ -82,12 +89,10 @@ public class PreloadActivity extends Activity {
 
                         publishProgress(50);
                         this.wait(2000);
-                        publishProgress((int)maxProgress);
+                        publishProgress((int) maxProgress);
                     }
                 }
-
                 catch (Exception e) {
-
                 }
             }
             return null;
@@ -95,7 +100,7 @@ public class PreloadActivity extends Activity {
 
         @Override
         protected void onProgressUpdate(Integer... values) {
-
+            progressBar.setProgress(values[0]);
         }
 
         @Override

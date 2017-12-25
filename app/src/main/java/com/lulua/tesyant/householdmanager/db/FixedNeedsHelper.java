@@ -6,11 +6,14 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
+import android.util.Log;
 
 import com.lulua.tesyant.householdmanager.models.FixedNeeds;
 
 import java.util.ArrayList;
 
+import static android.content.ContentValues.TAG;
+import static android.provider.BaseColumns._ID;
 import static com.lulua.tesyant.householdmanager.db.DatabaseContract.TABLE_FIXED_NEEDS;
 import static com.lulua.tesyant.householdmanager.db.DatabaseContract.FixedNeedsColumns.FIXED_DATE;
 import static com.lulua.tesyant.householdmanager.db.DatabaseContract.FixedNeedsColumns.FIXED_NAME;
@@ -43,16 +46,20 @@ public class FixedNeedsHelper {
         databaseHelper.close();
     }
 
-    public ArrayList<FixedNeeds> query() {
-        ArrayList<FixedNeeds> arrayList = new ArrayList<FixedNeeds>();
-        Cursor cursor = database.query(DATABASE_TABLE, null, null, null,
-                null, null, DatabaseContract.FixedNeedsColumns._ID + " DESC", null);
+    public Cursor queryAllData() {
+        return database.rawQuery("SELECT * FROM " + DATABASE_TABLE + " ORDER BY " + _ID
+                + " ASC", null);
+    }
+
+    public ArrayList<FixedNeeds> getAllData() {
+        ArrayList<FixedNeeds> arrayList = new ArrayList<>();
+        Cursor cursor = queryAllData();
         cursor.moveToFirst();
         FixedNeeds fixedNeeds;
         if (cursor.getCount()>0) {
             do {
                 fixedNeeds = new FixedNeeds();
-                fixedNeeds.setId(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.FixedNeedsColumns._ID)));
+                fixedNeeds.setId(cursor.getInt(cursor.getColumnIndexOrThrow(_ID)));
                 fixedNeeds.setNama(cursor.getString(cursor.getColumnIndexOrThrow(FIXED_NAME)));
                 fixedNeeds.setHarga(cursor.getDouble(cursor.getColumnIndexOrThrow(FIXED_PRICE)));
                 fixedNeeds.setJumlah(cursor.getInt(cursor.getColumnIndexOrThrow(FIXED_QUANTITY)));
@@ -72,20 +79,21 @@ public class FixedNeedsHelper {
                 + FIXED_NAME + ", "
                 + FIXED_PRICE + ", "
                 + FIXED_QUANTITY + ", "
-                + FIXED_DATE + ") VALUES (?, ?, ?, ?);";
+                + FIXED_DATE + ") VALUES (?, ?, ?, ?)";
         database.beginTransaction();
 
-        SQLiteStatement statement=database.compileStatement(sql);
-        for(int i=0;i<fixedNeeds.size();i++){
+        SQLiteStatement statement = database.compileStatement(sql);
+        for (int i = 0; i < fixedNeeds.size(); i++) {
             statement.bindString(1, fixedNeeds.get(i).getNama());
-            statement.bindString(2, String.valueOf(fixedNeeds.get(i).getTanggalBayar()));
-            statement.bindLong(4,fixedNeeds.get(i).getJumlah());
-            statement.bindDouble(4,fixedNeeds.get(i).getHarga());
+            statement.bindDouble(2, fixedNeeds.get(i).getHarga());
+            statement.bindString(3, String.valueOf(fixedNeeds.get(i).getJumlah()));
+            statement.bindString(4, fixedNeeds.get(i).getTanggalBayar());
             statement.execute();
             statement.clearBindings();
         }
         database.setTransactionSuccessful();
         database.endTransaction();
+        Log.e(TAG, "Exception");
     }
 
     public int update(FixedNeeds fixedNeeds) {
@@ -94,7 +102,12 @@ public class FixedNeedsHelper {
         args.put(FIXED_PRICE, fixedNeeds.getHarga());
         args.put(FIXED_QUANTITY, fixedNeeds.getJumlah());
         args.put(FIXED_DATE, fixedNeeds.getTanggalBayar());
-        return database.update(DATABASE_TABLE, args, DatabaseContract.FixedNeedsColumns._ID
-                + "= '" + fixedNeeds.getId() + "'",null);
+        return database.update(TABLE_FIXED_NEEDS, args, DatabaseContract.FixedNeedsColumns._ID
+                + "= '" + fixedNeeds.getId() + "'", null);
+    }
+
+    public int delete(int id) {
+        return database.delete(TABLE_FIXED_NEEDS, DatabaseContract.FixedNeedsColumns._ID
+                + " = '" + id + "'", null);
     }
 }
