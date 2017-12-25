@@ -1,9 +1,11 @@
-package com.lulua.tesyant.householdmanager;
+package com.lulua.tesyant.householdmanager.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class AddUnfixedNeeds extends AppCompatActivity {
+import com.lulua.tesyant.householdmanager.R;
+
+public class AddUnfixedNeedsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
